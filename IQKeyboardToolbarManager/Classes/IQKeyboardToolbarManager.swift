@@ -30,8 +30,11 @@ import IQKeyboardToolbar
 @MainActor
 @objc public final class IQKeyboardToolbarManager: NSObject {
 
-    internal let textInputViewObserver: IQTextInputViewNotification = IQTextInputViewNotification()
+    private let textInputViewObserver: IQTextInputViewNotification = IQTextInputViewNotification()
 
+    internal var textInputView: UIView? {
+        textInputViewObserver.textInputView
+    }
     /**
      Returns the default singleton instance.
      */
@@ -110,9 +113,21 @@ import IQKeyboardToolbar
         }
     }
 
+    /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
+    @objc func reloadInputViews() {
+
+        guard let textInputView = textInputViewObserver.textInputView else { return }
+        // If enabled then adding toolbar.
+        if privateIsEnableAutoToolbar(of: textInputView) {
+            self.addToolbarIfRequired(of: textInputView)
+        } else {
+            self.removeToolbarIfRequired(of: textInputView)
+        }
+    }
+
     private func addTextInputViewObserver() {
         textInputViewObserver.subscribe(identifier: "IQActiveConfiguration",
-                                                          changeHandler: { [self] info in
+                                        changeHandler: { [self] info in
 
             guard info.textInputView.iq.isAlertViewTextField() == false else {
                 return
@@ -120,9 +135,9 @@ import IQKeyboardToolbar
 
             switch info.event {
             case .beginEditing:
-                addToolbarIfRequired()
+                reloadInputViews()
             case .endEditing:
-                removeToolbarIfRequired()
+                removeToolbarIfRequired(of: info.textInputView)
             }
         })
     }

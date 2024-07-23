@@ -34,9 +34,9 @@ public extension IQKeyboardToolbarManager {
     */
     @objc var canGoPrevious: Bool {
         // If it is not first textInputView. then it's previous object canBecomeFirstResponder.
-        guard let textInputViews: [UIView] = responderViews(),
-              let view: UIView = textInputViewObserver.textInputView,
-              let index: Int = textInputViews.firstIndex(of: view),
+        guard let textInputView: UIView = self.textInputView,
+              let textInputViews: [UIView] = responderViews(of: textInputView),
+              let index: Int = textInputViews.firstIndex(of: textInputView),
               index > 0 else {
             return false
         }
@@ -48,9 +48,9 @@ public extension IQKeyboardToolbarManager {
     */
     @objc var canGoNext: Bool {
         // If it is not first textInputView. then it's previous object canBecomeFirstResponder.
-        guard let textInputViews: [UIView] = responderViews(),
-              let view: UIView = textInputViewObserver.textInputView,
-              let index: Int = textInputViews.firstIndex(of: view),
+        guard let textInputView: UIView = self.textInputView,
+              let textInputViews: [UIView] = responderViews(of: textInputView),
+              let index: Int = textInputViews.firstIndex(of: textInputView),
               index < textInputViews.count-1 else {
             return false
         }
@@ -64,9 +64,9 @@ public extension IQKeyboardToolbarManager {
     @objc func goPrevious() -> Bool {
 
         // If it is not first textInputView. then it's previous object becomeFirstResponder.
-        guard let textInputViews: [UIView] = responderViews(),
-              let view: UIView = textInputViewObserver.textInputView,
-              let index: Int = textInputViews.firstIndex(of: view),
+        guard let textInputView: UIView = self.textInputView,
+              let textInputViews: [UIView] = responderViews(of: textInputView),
+              let index: Int = textInputViews.firstIndex(of: textInputView),
               index > 0 else {
             return false
         }
@@ -90,9 +90,9 @@ public extension IQKeyboardToolbarManager {
     @objc func goNext() -> Bool {
 
         // If it is not first textInputView. then it's previous object becomeFirstResponder.
-        guard let textInputViews: [UIView] = responderViews(),
-              let view: UIView = textInputViewObserver.textInputView,
-              let index: Int = textInputViews.firstIndex(of: view),
+        guard let textInputView: UIView = self.textInputView,
+              let textInputViews: [UIView] = responderViews(of: textInputView),
+              let index: Int = textInputViews.firstIndex(of: textInputView),
               index < textInputViews.count-1 else {
             return false
         }
@@ -122,7 +122,7 @@ internal extension IQKeyboardToolbarManager {
         }
 
         guard canGoPrevious,
-              let textInputView: UIView = textInputViewObserver.textInputView else {
+              let textInputView: UIView = self.textInputView else {
             return
         }
 
@@ -143,7 +143,7 @@ internal extension IQKeyboardToolbarManager {
         }
 
         guard canGoNext,
-              let textInputView: UIView = textInputViewObserver.textInputView else {
+              let textInputView: UIView = self.textInputView else {
             return
         }
 
@@ -163,7 +163,7 @@ internal extension IQKeyboardToolbarManager {
             UIDevice.current.playInputClick()
         }
 
-        guard let textInputView: UIView = textInputViewObserver.textInputView else {
+        guard let textInputView: UIView = self.textInputView else {
             return
         }
 

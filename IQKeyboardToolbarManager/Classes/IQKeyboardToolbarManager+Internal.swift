@@ -29,11 +29,7 @@ import IQKeyboardCore
 internal extension IQKeyboardToolbarManager {
 
     /**    Get all textInputView siblings of textInputView. */
-    func responderViews() -> [UIView]? {
-
-        guard let textInputView: UIView = textInputViewObserver.textInputView else {
-            return nil
-        }
+    func responderViews(of textInputView: UIView) -> [UIView]? {
 
         var superConsideredView: UIView?
 
@@ -73,17 +69,16 @@ internal extension IQKeyboardToolbarManager {
         }
     }
 
-    func privateIsEnableAutoToolbar() -> Bool {
+    func privateIsEnableAutoToolbar(of textInputView: UIView) -> Bool {
 
         var isEnabled: Bool = enable
 
-        guard let textInputViewInfo: IQTextInputViewInfo = textInputViewObserver.textInputViewInfo,
-              var textInputViewController = textInputViewInfo.textInputView.iq.viewContainingController() else {
+        guard var textInputViewController = textInputView.iq.viewContainingController() else {
             return isEnabled
         }
 
         // If it is searchBar textInputView embedded in Navigation Bar
-        if textInputViewInfo.textInputView.iq.textFieldSearchBar() != nil,
+        if textInputView.iq.textFieldSearchBar() != nil,
            let navController: UINavigationController = textInputViewController as? UINavigationController,
            let topController: UIViewController = navController.topViewController {
             textInputViewController = topController

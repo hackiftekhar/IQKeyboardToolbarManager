@@ -37,14 +37,13 @@ public extension IQKeyboardToolbarManager {
     /**
      Add toolbar if it is required to add on textInputViews and it's siblings.
      */
-    internal func addToolbarIfRequired() {
+    internal func addToolbarIfRequired(of textInputView: UIView) {
 
         // Either there is no inputAccessoryView or
         // if accessoryView is not appropriate for current situation
         // (There is Previous/Next/Done toolbar)
-        guard let siblings: [UIView] = responderViews(), !siblings.isEmpty,
-              let textInputView: UIView = textInputViewObserver.textInputView,
-              textInputView.responds(to: #selector(setter: UITextField.inputAccessoryView)),
+        guard textInputView.responds(to: #selector(setter: UITextField.inputAccessoryView)),
+              let siblings: [UIView] = responderViews(of: textInputView), !siblings.isEmpty,
               !Self.hasUserDefinedInputAccessoryView(textInputView: textInputView) else {
             return
         }
@@ -123,9 +122,11 @@ public extension IQKeyboardToolbarManager {
     // swiftlint:enable function_body_length
 
     /** Remove any toolbar if it is IQKeyboardToolbar. */
-    internal func removeToolbarIfRequired() {    //  (Bug ID: #18)
+    internal func removeToolbarIfRequired(of textInputView: UIView) {    //  (Bug ID: #18)
 
-        guard let siblings: [UIView] = responderViews(), !siblings.isEmpty else {
+        guard textInputView.responds(to: #selector(setter: UITextField.inputAccessoryView)),
+              let toolbar: IQKeyboardToolbar = textInputView.inputAccessoryView as? IQKeyboardToolbar,
+              toolbar.tag == IQKeyboardToolbarManager.kIQToolbarTag else {
             return
         }
 
@@ -137,38 +138,11 @@ public extension IQKeyboardToolbarManager {
             showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
         }
 
-        showLog("Found \(siblings.count) responder sibling(s)")
-
-        for view in siblings {
-            removeToolbarIfRequired(of: view)
-        }
-    }
-
-    /** Remove any toolbar if it is IQKeyboardToolbar. */
-    internal func removeToolbarIfRequired(of view: UIView) {    //  (Bug ID: #18)
-
-        guard view.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-              let toolbar: IQKeyboardToolbar = view.inputAccessoryView as? IQKeyboardToolbar,
-              toolbar.tag == IQKeyboardToolbarManager.kIQToolbarTag else {
-            return
-        }
-
         // setInputAccessoryView: check   (Bug ID: #307)
-        if let view: UITextField = view as? UITextField {
+        if let view: UITextField = textInputView as? UITextField {
             view.inputAccessoryView = nil
-        } else if let view: UITextView = view as? UITextView {
+        } else if let view: UITextView = textInputView as? UITextView {
             view.inputAccessoryView = nil
-        }
-    }
-
-    /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
-    @objc func reloadInputViews() {
-
-        // If enabled then adding toolbar.
-        if privateIsEnableAutoToolbar() {
-            self.addToolbarIfRequired()
-        } else {
-            self.removeToolbarIfRequired()
         }
     }
 }
