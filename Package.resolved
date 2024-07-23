@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "iqkeyboardcore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hackiftekhar/IQKeyboardCore.git",
+      "state" : {
+        "revision" : "289f2ee4ea160514324e9f9b34daeb14e8e66d6e",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "iqkeyboardtoolbar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hackiftekhar/IQKeyboardToolbar.git",
+      "state" : {
+        "revision" : "18ad2ced3500b1a02fdc53287aa35ebac5017528",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "iqtextinputviewnotification",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hackiftekhar/IQTextInputViewNotification",
+      "state" : {
+        "revision" : "0dfb44b8186570b0f62daf9cea53e5fe1eaa01cb",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}
