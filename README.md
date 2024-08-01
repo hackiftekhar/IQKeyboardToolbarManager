@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/IQKeyboardToolbarManager.svg?style=flat)](https://cocoapods.org/pods/IQKeyboardToolbarManager)
 [![Platform](https://img.shields.io/cocoapods/p/IQKeyboardToolbarManager.svg?style=flat)](https://cocoapods.org/pods/IQKeyboardToolbarManager)
 
+![Screenshot](https://raw.githubusercontent.com/hackiftekhar/IQKeyboardToolbarManager/master/Screenshot/IQKeyboardToolbarManagerScreenshot.png)
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
