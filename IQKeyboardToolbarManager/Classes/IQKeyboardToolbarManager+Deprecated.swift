@@ -27,6 +27,7 @@ import IQKeyboardToolbar
 // swiftlint:disable unused_setter_value
 // swiftlint:disable identifier_name
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardToolbarManager {
 
     @available(*, unavailable, renamed: "playInputClicks")
@@ -43,6 +44,7 @@ public extension IQKeyboardToolbarManager {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardToolbarManager {
 
     @available(*, unavailable, renamed: "toolbarConfiguration.manageBehavior")
@@ -77,6 +79,7 @@ public extension IQKeyboardToolbarManager {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardToolbarManager {
     @available(*, unavailable, renamed: "toolbarConfiguration.previousBarButtonConfiguration.image",
                 message: "To change, please assign a new toolbarConfiguration.previousBarButtonConfiguration")
@@ -137,6 +140,7 @@ public extension IQKeyboardToolbarManager {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardToolbarManager {
 
     @available(*, unavailable, renamed: "toolbarConfiguration.placeholderConfiguration.accessibilityLabel")

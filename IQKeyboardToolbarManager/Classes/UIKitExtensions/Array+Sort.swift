@@ -22,13 +22,14 @@
 //  THE SOFTWARE.
 
 import UIKit
+import IQKeyboardCore
 
 /**
 UIView.subviews sorting category.
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-internal extension Array where Element: UIView {
+internal extension Array where Element: IQTextInputView {
 
     /**
     Returns the array by sorting the UIView's by their tag property.

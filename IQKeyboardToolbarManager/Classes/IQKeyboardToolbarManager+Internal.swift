@@ -26,16 +26,17 @@ import IQTextInputViewNotification
 import IQKeyboardCore
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 internal extension IQKeyboardToolbarManager {
 
     /**    Get all textInputView siblings of textInputView. */
-    func responderViews(of textInputView: UIView) -> [UIView]? {
+    func responderViews(of textInputView: some IQTextInputView) -> [any IQTextInputView]? {
 
         var superConsideredView: UIView?
 
         // If find any consider responderView in it's upper hierarchy then will get deepResponderView.
         for allowedClass in deepResponderAllowedContainerClasses {
-            superConsideredView = textInputView.iq.superviewOf(type: allowedClass)
+            superConsideredView = (textInputView as UIView).iq.superviewOf(type: allowedClass)
             if superConsideredView != nil {
                 break
             }
@@ -53,7 +54,7 @@ internal extension IQKeyboardToolbarManager {
             return view.iq.deepResponderViews()
         } else {  // Otherwise fetching all the siblings
 
-            let textInputViews: [UIView] = textInputView.iq.responderSiblings()
+            let textInputViews: [any IQTextInputView] = textInputView.iq.responderSiblings()
 
             // Sorting textInputViews according to behavior
             switch toolbarConfiguration.manageBehavior {
@@ -69,16 +70,16 @@ internal extension IQKeyboardToolbarManager {
         }
     }
 
-    func privateIsEnableAutoToolbar(of textInputView: UIView) -> Bool {
+    func privateIsEnableAutoToolbar(of textInputView: some IQTextInputView) -> Bool {
 
         var isEnabled: Bool = enable
 
-        guard var textInputViewController = textInputView.iq.viewContainingController() else {
+        guard var textInputViewController = (textInputView as UIView).iq.viewContainingController() else {
             return isEnabled
         }
 
         // If it is searchBar textInputView embedded in Navigation Bar
-        if textInputView.iq.textFieldSearchBar() != nil,
+        if (textInputView as UIView).iq.textFieldSearchBar() != nil,
            let navController: UINavigationController = textInputViewController as? UINavigationController,
            let topController: UIViewController = navController.topViewController {
             textInputViewController = topController
@@ -113,9 +114,10 @@ internal extension IQKeyboardToolbarManager {
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 private extension IQKeyboardToolbarManager {
 
-    private static func getSwiftUIHostingView(textInputView: UIView) -> UIView? {
+    private static func getSwiftUIHostingView(textInputView: some IQTextInputView) -> UIView? {
         var swiftUIHostingView: UIView?
         let swiftUIHostingViewName: String = "UIHostingView<"
         var superView: UIView? = textInputView.superview

@@ -1,5 +1,5 @@
 //
-//  UIView+IQKeyboardExtension.swift
+//  UIView+Responders.swift
 //  https://github.com/hackiftekhar/IQKeyboardToolbarManager
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
@@ -35,7 +35,7 @@ UIView category for managing textInputView
 */
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardExtension where Base: UIView {
+public extension IQKeyboardExtension where Base: IQTextInputView {
 
     /**
      If ignoreSwitchingByNextPrevious is true then library will ignore this textInputView
@@ -58,6 +58,43 @@ public extension IQKeyboardExtension where Base: UIView {
     }
 }
 
+// swiftlint:disable unused_setter_value
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+@objc public extension UIView {
+    @available(*, unavailable, renamed: "iq.ignoreSwitchingByNextPrevious")
+    var ignoreSwitchingByNextPrevious: Bool {
+        get { false }
+        set { }
+    }
+}
+// swiftlint:enable unused_setter_value
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+internal extension IQKeyboardExtension where Base: IQTextInputView {
+
+    /**
+    Returns all siblings of the receiver which canBecomeFirstResponder.
+    */
+    func responderSiblings() -> [any IQTextInputView] {
+
+        //    Getting all siblings
+        guard let siblings: [UIView] = base?.superview?.subviews else { return [] }
+
+        // Array of textInputView.
+        var textInputViews: [any IQTextInputView] = []
+        for view in siblings {
+            if let view = view as? any IQTextInputView,
+               view == base || !view.internalIgnoreSwitchingByNextPrevious,
+               view.internalCanBecomeFirstResponder() {
+                textInputViews.append(view)
+            }
+        }
+
+        return textInputViews
+    }
+}
 /**
 UIView category for managing textInputView
 */
@@ -66,39 +103,20 @@ UIView category for managing textInputView
 internal extension IQKeyboardExtension where Base: UIView {
 
     /**
-    Returns all siblings of the receiver which canBecomeFirstResponder.
-    */
-    func responderSiblings() -> [UIView] {
-
-        //    Getting all siblings
-        guard let siblings: [UIView] = base?.superview?.subviews else { return [] }
-
-        // Array of textInputView.
-        var textInputViews: [UIView] = []
-        for view in siblings {
-            if view == base || !view.iq.ignoreSwitchingByNextPrevious,
-               view.iq.canBecomeFirstResponder() {
-                textInputViews.append(view)
-            }
-        }
-
-        return textInputViews
-    }
-
-    /**
     Returns all deep subViews of the receiver which canBecomeFirstResponder.
     */
-    func deepResponderViews() -> [UIView] {
+    func deepResponderViews() -> [any IQTextInputView] {
 
         guard let subviews: [UIView] = base?.subviews, !subviews.isEmpty else { return [] }
 
         // Array of textInputViews.
-        var textInputViews: [UIView] = []
+        var textInputViews: [any IQTextInputView] = []
 
         for view in subviews {
 
-            if view == base || !view.iq.ignoreSwitchingByNextPrevious,
-               view.iq.canBecomeFirstResponder() {
+            if let view = view as? any IQTextInputView,
+               view == base || !view.internalIgnoreSwitchingByNextPrevious,
+               view.internalCanBecomeFirstResponder() {
                 textInputViews.append(view)
             }
             // Sometimes there are hidden or disabled views and textInputView inside them still recorded,
@@ -114,7 +132,7 @@ internal extension IQKeyboardExtension where Base: UIView {
         }
 
         // subviews are returning in opposite order. Sorting according the frames 'y'.
-        return textInputViews.sorted(by: { (view1: UIView, view2: UIView) -> Bool in
+        return textInputViews.sorted(by: { (view1: any IQTextInputView, view2: any IQTextInputView) -> Bool in
 
             let frame1: CGRect = view1.convert(view1.bounds, to: base)
             let frame2: CGRect = view2.convert(view2.bounds, to: base)
@@ -126,19 +144,15 @@ internal extension IQKeyboardExtension where Base: UIView {
             }
         })
     }
+}
 
-    private func canBecomeFirstResponder() -> Bool {
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+private extension IQKeyboardExtension where Base: IQTextInputView {
 
-        var canBecomeFirstResponder: Bool = false
+    func canBecomeFirstResponder() -> Bool {
 
-        if base?.conforms(to: (any UITextInput).self) == true {
-            //  Setting toolbar to keyboard.
-            if let textInputView: UITextView = base as? UITextView {
-                canBecomeFirstResponder = textInputView.isEditable
-            } else if let textInputView: UITextField = base as? UITextField {
-                canBecomeFirstResponder = textInputView.isEnabled
-            }
-        }
+        var canBecomeFirstResponder: Bool = base?.iqIsEnabled == true
 
         if canBecomeFirstResponder {
             canBecomeFirstResponder = base?.isUserInteractionEnabled == true &&
@@ -152,13 +166,11 @@ internal extension IQKeyboardExtension where Base: UIView {
     }
 }
 
-// swiftlint:disable unused_setter_value
-@available(iOSApplicationExtension, unavailable)
-@objc public extension UIView {
-    @available(*, unavailable, renamed: "iq.ignoreSwitchingByNextPrevious")
-    var ignoreSwitchingByNextPrevious: Bool {
-        get { false }
-        set { }
+fileprivate extension IQTextInputView {
+    var internalIgnoreSwitchingByNextPrevious: Bool {
+        return iq.ignoreSwitchingByNextPrevious
+    }
+    func internalCanBecomeFirstResponder() -> Bool {
+        return iq.canBecomeFirstResponder()
     }
 }
-// swiftlint:enable unused_setter_value

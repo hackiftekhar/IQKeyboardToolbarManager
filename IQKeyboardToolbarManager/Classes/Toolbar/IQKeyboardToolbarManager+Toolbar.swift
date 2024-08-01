@@ -26,24 +26,24 @@ import IQKeyboardCore
 import IQKeyboardToolbar
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 public extension IQKeyboardToolbarManager {
 
     /**
-    Default tag for toolbar with Done button   -1001
-    */
+     Default tag for toolbar with Done button   -1001
+     */
     private static let kIQToolbarTag = -1001
 
     // swiftlint:disable function_body_length
     /**
      Add toolbar if it is required to add on textInputViews and it's siblings.
      */
-    internal func addToolbarIfRequired(of textInputView: UIView) {
+    internal func addToolbarIfRequired(of textInputView: some IQTextInputView) {
 
         // Either there is no inputAccessoryView or
         // if accessoryView is not appropriate for current situation
         // (There is Previous/Next/Done toolbar)
-        guard textInputView.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-              let siblings: [UIView] = responderViews(of: textInputView), !siblings.isEmpty,
+        guard let siblings: [any IQTextInputView] = responderViews(of: textInputView), !siblings.isEmpty,
               !Self.hasUserDefinedInputAccessoryView(textInputView: textInputView) else {
             return
         }
@@ -56,8 +56,8 @@ public extension IQKeyboardToolbarManager {
         let rightConfiguration: IQBarButtonItemConfiguration = getRightConfiguration()
 
         let isTableCollectionView: Bool
-        if textInputView.iq.superviewOf(type: UITableView.self) != nil ||
-            textInputView.iq.superviewOf(type: UICollectionView.self) != nil {
+        if (textInputView as UIView).iq.superviewOf(type: UITableView.self) != nil ||
+            (textInputView as UIView).iq.superviewOf(type: UICollectionView.self) != nil {
             isTableCollectionView = true
         } else {
             isTableCollectionView = false
@@ -102,9 +102,17 @@ public extension IQKeyboardToolbarManager {
                 textInputView.iq.toolbar.nextBarButton.isEnabled = true
             } else {
                 // If first textInputView, then previous should not be enabled.
-                textInputView.iq.toolbar.previousBarButton.isEnabled = (siblings.first != textInputView)
+                if let first = siblings.first {
+                    textInputView.iq.toolbar.previousBarButton.isEnabled = first != textInputView
+                } else {
+                    textInputView.iq.toolbar.previousBarButton.isEnabled = false
+                }
                 // If last textInputView, then next should not be enabled.
-                textInputView.iq.toolbar.nextBarButton.isEnabled = (siblings.last != textInputView)
+                if let last = siblings.last {
+                    textInputView.iq.toolbar.nextBarButton.isEnabled = last != textInputView
+                } else {
+                    textInputView.iq.toolbar.nextBarButton.isEnabled = false
+                }
             }
         } else {
             textInputView.iq.addToolbar(target: self, rightConfiguration: rightConfiguration,
@@ -122,10 +130,9 @@ public extension IQKeyboardToolbarManager {
     // swiftlint:enable function_body_length
 
     /** Remove any toolbar if it is IQKeyboardToolbar. */
-    internal func removeToolbarIfRequired(of textInputView: UIView) {    //  (Bug ID: #18)
+    internal func removeToolbarIfRequired(of textInputView: some IQTextInputView) {    //  (Bug ID: #18)
 
-        guard textInputView.responds(to: #selector(setter: UITextField.inputAccessoryView)),
-              let toolbar: IQKeyboardToolbar = textInputView.inputAccessoryView as? IQKeyboardToolbar,
+        guard let toolbar: IQKeyboardToolbar = textInputView.inputAccessoryView as? IQKeyboardToolbar,
               toolbar.tag == IQKeyboardToolbarManager.kIQToolbarTag else {
             return
         }
@@ -138,19 +145,27 @@ public extension IQKeyboardToolbarManager {
             showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
         }
 
-        // setInputAccessoryView: check   (Bug ID: #307)
-        if let view: UITextField = textInputView as? UITextField {
-            view.inputAccessoryView = nil
-        } else if let view: UITextView = textInputView as? UITextView {
-            view.inputAccessoryView = nil
+        textInputView.inputAccessoryView = nil
+    }
+
+    /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
+    @objc func reloadInputViews() {
+
+        guard let textInputView = textInputView else { return }
+        // If enabled then adding toolbar.
+        if privateIsEnableAutoToolbar(of: textInputView) {
+            self.addToolbarIfRequired(of: textInputView)
+        } else {
+            self.removeToolbarIfRequired(of: textInputView)
         }
     }
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 private extension IQKeyboardToolbarManager {
 
-    static func hasUserDefinedInputAccessoryView(textInputView: UIView) -> Bool {
+    static func hasUserDefinedInputAccessoryView(textInputView: some IQTextInputView) -> Bool {
         guard let inputAccessoryView: UIView = textInputView.inputAccessoryView,
               inputAccessoryView.tag != IQKeyboardToolbarManager.kIQToolbarTag else { return false }
 
@@ -205,30 +220,26 @@ private extension IQKeyboardToolbarManager {
         return nextConfiguration
     }
 
-    static func applyToolbarConfiguration(textInputView: UIView,
+    static func applyToolbarConfiguration(textInputView: some IQTextInputView,
                                           toolbarConfiguration: IQKeyboardToolbarConfiguration) {
 
         let toolbar: IQKeyboardToolbar = textInputView.iq.toolbar
 
         // Setting toolbar tintColor //  (Enhancement ID: #30)
-        if toolbarConfiguration.useTextFieldTintColor {
+        if toolbarConfiguration.useTextInputViewTintColor {
             toolbar.tintColor = textInputView.tintColor
         } else {
             toolbar.tintColor = toolbarConfiguration.tintColor
         }
 
-        //  Setting toolbar to keyboard.
-        if let textInputView: any UITextInput = textInputView as? (any UITextInput) {
-
-            // Bar style according to keyboard appearance
-            switch textInputView.keyboardAppearance {
-            case .dark?:
-                toolbar.barStyle = .black
-                toolbar.barTintColor = nil
-            default:
-                toolbar.barStyle = .default
-                toolbar.barTintColor = toolbarConfiguration.barTintColor
-            }
+        // Bar style according to keyboard appearance
+        switch textInputView.keyboardAppearance {
+        case .dark:
+            toolbar.barStyle = .black
+            toolbar.barTintColor = nil
+        default:
+            toolbar.barStyle = .default
+            toolbar.barTintColor = toolbarConfiguration.barTintColor
         }
 
         // Setting toolbar title font.   //  (Enhancement ID: #30)

@@ -28,7 +28,7 @@ import UIKit
 @objc open class IQDeepResponderContainerView: UIView {
 }
 
-@available(*, unavailable, renamed: "IQDeepResponderContainerView")
+@available(*, deprecated, renamed: "IQDeepResponderContainerView", message: "Deprecated in favor of IQDeepResponderContainerView and will be removed in future release.")
 @MainActor
 @objc open class IQPreviousNextView: UIView {
 }
