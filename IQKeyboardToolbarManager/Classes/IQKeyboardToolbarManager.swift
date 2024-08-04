@@ -30,11 +30,12 @@ import IQKeyboardToolbar
 @MainActor
 @objc public final class IQKeyboardToolbarManager: NSObject {
 
-    private let textInputViewObserver: IQTextInputViewNotification = IQTextInputViewNotification()
+    private let textInputViewObserver: IQTextInputViewNotification = .init()
 
     internal var textInputView: (some IQTextInputView)? {
         textInputViewObserver.textInputView
     }
+    
     /**
      Returns the default singleton instance.
      */
@@ -42,7 +43,7 @@ import IQKeyboardToolbar
     @objc public static let shared: IQKeyboardToolbarManager = .init()
 
     /**
-     Automatic add the IQKeyboardToolbar functionality. Default is YES.
+     Automatic add the toolbar functionality. Default is YES.
      */
     @objc public var enable: Bool = true {
         didSet {
@@ -90,12 +91,12 @@ import IQKeyboardToolbar
         UITableView.self,
         UICollectionView.self,
         IQDeepResponderContainerView.self,
-        IQPreviousNextView.self,
+        IQPreviousNextView.self
     ]
 
     internal var logIndentation = 0
 
-    override init() {
+    @objc internal override init() {
 
         super.init()
 
@@ -108,7 +109,7 @@ import IQKeyboardToolbar
         DispatchQueue.main.async {
             let textInputView: UITextField = UITextField()
             textInputView.iq.addDone(target: nil, action: #selector(self.doneAction(_:)))
-            textInputView.iq.addPreviousNextDone(target: nil, 
+            textInputView.iq.addPreviousNextDone(target: nil,
                                                  previousAction: #selector(self.previousAction(_:)),
                                                  nextAction: #selector(self.nextAction(_:)),
                                                  doneAction: #selector(self.doneAction(_:)))

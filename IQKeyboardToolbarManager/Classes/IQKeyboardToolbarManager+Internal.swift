@@ -121,10 +121,10 @@ private extension IQKeyboardToolbarManager {
         var swiftUIHostingView: UIView?
         let swiftUIHostingViewName: String = "UIHostingView<"
         var superView: UIView? = textInputView.superview
-        while let unwrappedSuperView: UIView = superView {
+        while let aSuperview: UIView = superView {
 
             let classNameString: String = {
-                var name: String = "\(type(of: unwrappedSuperView.self))"
+                var name: String = "\(type(of: aSuperview.self))"
                 if name.hasPrefix("_") {
                     name.removeFirst()
                 }
@@ -132,11 +132,11 @@ private extension IQKeyboardToolbarManager {
             }()
 
             if classNameString.hasPrefix(swiftUIHostingViewName) {
-                swiftUIHostingView = unwrappedSuperView
+                swiftUIHostingView = aSuperview
                 break
             }
 
-            superView = unwrappedSuperView.superview
+            superView = aSuperview.superview
         }
         return swiftUIHostingView
     }

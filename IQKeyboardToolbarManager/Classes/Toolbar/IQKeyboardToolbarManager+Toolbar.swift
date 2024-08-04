@@ -32,7 +32,7 @@ public extension IQKeyboardToolbarManager {
     /**
      Default tag for toolbar with Done button   -1001
      */
-    private static let kIQToolbarTag = -1001
+    private static let toolbarTag = -1001
 
     // swiftlint:disable function_body_length
     /**
@@ -49,7 +49,10 @@ public extension IQKeyboardToolbarManager {
         }
 
         showLog(">>>>> \(#function) started >>>>>", indentation: 1)
-        let startTime: CFTimeInterval = CACurrentMediaTime()
+
+        defer {
+            showLog("<<<<< \(#function) ended <<<<<", indentation: -1)
+        }
 
         showLog("Found \(siblings.count) responder sibling(s)")
 
@@ -69,7 +72,7 @@ public extension IQKeyboardToolbarManager {
         switch previousNextDisplayMode {
         case .default:
             // If the textInputView is part of UITableView/UICollectionView then we should be exposing previous/next too
-            // Because at this time we don't know the previous or next cell if it contains another textInputView to move.
+            // Because at this time we don't know previous or next cell if it contains another textInputView to move.
             if isTableCollectionView {
                 havePreviousNext = true
             } else if siblings.count <= 1 {
@@ -120,12 +123,9 @@ public extension IQKeyboardToolbarManager {
                                         titleAccessibilityLabel: placeholderConfig.accessibilityLabel)
         }
         // (Bug ID: #78)
-        textInputView.inputAccessoryView?.tag = IQKeyboardToolbarManager.kIQToolbarTag
+        textInputView.inputAccessoryView?.tag = IQKeyboardToolbarManager.toolbarTag
 
         Self.applyToolbarConfiguration(textInputView: textInputView, toolbarConfiguration: toolbarConfiguration)
-
-        let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-        showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
     }
     // swiftlint:enable function_body_length
 
@@ -133,16 +133,14 @@ public extension IQKeyboardToolbarManager {
     internal func removeToolbarIfRequired(of textInputView: some IQTextInputView) {    //  (Bug ID: #18)
 
         guard let toolbar: IQKeyboardToolbar = textInputView.inputAccessoryView as? IQKeyboardToolbar,
-              toolbar.tag == IQKeyboardToolbarManager.kIQToolbarTag else {
+              toolbar.tag == IQKeyboardToolbarManager.toolbarTag else {
             return
         }
 
         showLog(">>>>> \(#function) started >>>>>", indentation: 1)
-        let startTime: CFTimeInterval = CACurrentMediaTime()
 
         defer {
-            let elapsedTime: CFTimeInterval = CACurrentMediaTime() - startTime
-            showLog("<<<<< \(#function) ended: \(elapsedTime) seconds <<<<<", indentation: -1)
+            showLog("<<<<< \(#function) ended <<<<<", indentation: -1)
         }
 
         textInputView.inputAccessoryView = nil
@@ -167,7 +165,7 @@ private extension IQKeyboardToolbarManager {
 
     static func hasUserDefinedInputAccessoryView(textInputView: some IQTextInputView) -> Bool {
         guard let inputAccessoryView: UIView = textInputView.inputAccessoryView,
-              inputAccessoryView.tag != IQKeyboardToolbarManager.kIQToolbarTag else { return false }
+              inputAccessoryView.tag != IQKeyboardToolbarManager.toolbarTag else { return false }
 
         let swiftUIAccessoryName: String = "InputAccessoryHost<InputAccessoryBar>"
         let classNameString: String = "\(type(of: inputAccessoryView.classForCoder))"

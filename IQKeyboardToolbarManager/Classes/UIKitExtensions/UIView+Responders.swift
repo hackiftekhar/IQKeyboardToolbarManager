@@ -95,6 +95,7 @@ internal extension IQKeyboardExtension where Base: IQTextInputView {
         return textInputViews
     }
 }
+
 /**
 UIView category for managing textInputView
 */

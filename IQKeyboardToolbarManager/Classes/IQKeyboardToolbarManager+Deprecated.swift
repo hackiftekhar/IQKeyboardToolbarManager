@@ -35,12 +35,6 @@ public extension IQKeyboardToolbarManager {
         get { false }
         set { }
     }
-
-    @available(*, unavailable, renamed: "deepResponderAllowedContainerClasses")
-    @objc var toolbarPreviousNextAllowedClasses: [UIView.Type] {
-        get { [] }
-        set { }
-    }
 }
 
 @available(iOSApplicationExtension, unavailable)
@@ -74,6 +68,12 @@ public extension IQKeyboardToolbarManager {
     @available(*, unavailable, renamed: "toolbarConfiguration.previousNextDisplayMode")
     @objc var previousNextDisplayMode: IQPreviousNextDisplayMode {
         get { .default }
+        set { }
+    }
+
+    @available(*, unavailable, renamed: "deepResponderAllowedContainerClasses")
+    @objc var toolbarPreviousNextAllowedClasses: [UIView.Type] {
+        get { [] }
         set { }
     }
 }
@@ -173,6 +173,5 @@ public extension IQKeyboardToolbarManager {
         set { }
     }
 }
-
 // swiftlint:enable unused_setter_value
 // swiftlint:enable identifier_name
