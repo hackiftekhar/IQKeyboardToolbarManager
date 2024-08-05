@@ -118,6 +118,7 @@ import IQKeyboardToolbar
 }
 
 @available(iOSApplicationExtension, unavailable)
+@MainActor
 private extension IQKeyboardToolbarManager {
 
     private func removeTextInputViewObserver() {
