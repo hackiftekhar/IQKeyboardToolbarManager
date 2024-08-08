@@ -146,7 +146,7 @@ internal extension IQKeyboardToolbarManager {
     // swiftlint:enable function_body_length
 
     /** Remove any toolbar if it is IQKeyboardToolbar. */
-    internal func removeToolbarIfRequired(of textInputView: some IQTextInputView) {    //  (Bug ID: #18)
+    func removeToolbarIfRequired(of textInputView: some IQTextInputView) {    //  (Bug ID: #18)
 
         guard let toolbar: IQKeyboardToolbar = textInputView.inputAccessoryView as? IQKeyboardToolbar,
               toolbar.tag == IQKeyboardToolbarManager.toolbarTag else {

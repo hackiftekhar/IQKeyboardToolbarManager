@@ -126,19 +126,19 @@ private extension IQKeyboardToolbarManager {
 
     private func addTextInputViewObserver() {
         textInputViewObserver.subscribe(identifier: "IQKeyboardToolbarManager",
-                                        changeHandler: { [weak self] info in
+                                        changeHandler: { [weak self] event, textInputView in
 
             guard let self = self else { return }
 
-            guard (info.textInputView as UIView).iq.isAlertViewTextField() == false else {
+            guard (textInputView as UIView).iq.isAlertViewTextField() == false else {
                 return
             }
 
-            switch info.event {
+            switch event {
             case .beginEditing:
                 reloadInputViews()
             case .endEditing:
-                removeToolbarIfRequired(of: info.textInputView)
+                removeToolbarIfRequired(of: textInputView)
             }
         })
     }
