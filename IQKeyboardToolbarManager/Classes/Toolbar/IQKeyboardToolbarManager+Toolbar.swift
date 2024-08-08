@@ -27,7 +27,23 @@ import IQKeyboardToolbar
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
-public extension IQKeyboardToolbarManager {
+@objc public extension IQKeyboardToolbarManager {
+    /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
+    func reloadInputViews() {
+
+        guard let textInputView = textInputView else { return }
+        // If enabled then adding toolbar.
+        if privateIsEnableAutoToolbar(of: textInputView) {
+            self.addToolbarIfRequired(of: textInputView)
+        } else {
+            self.removeToolbarIfRequired(of: textInputView)
+        }
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+internal extension IQKeyboardToolbarManager {
 
     /**
      Default tag for toolbar with Done button   -1001
@@ -38,7 +54,7 @@ public extension IQKeyboardToolbarManager {
     /**
      Add toolbar if it is required to add on textInputViews and it's siblings.
      */
-    internal func addToolbarIfRequired(of textInputView: some IQTextInputView) {
+    func addToolbarIfRequired(of textInputView: some IQTextInputView) {
 
         // Either there is no inputAccessoryView or
         // if accessoryView is not appropriate for current situation
@@ -144,18 +160,6 @@ public extension IQKeyboardToolbarManager {
         }
 
         textInputView.inputAccessoryView = nil
-    }
-
-    /**    reloadInputViews to reload toolbar buttons enable/disable state on the fly Enhancement ID #434. */
-    @objc func reloadInputViews() {
-
-        guard let textInputView = textInputView else { return }
-        // If enabled then adding toolbar.
-        if privateIsEnableAutoToolbar(of: textInputView) {
-            self.addToolbarIfRequired(of: textInputView)
-        } else {
-            self.removeToolbarIfRequired(of: textInputView)
-        }
     }
 }
 

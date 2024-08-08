@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hackiftekhar/IQKeyboardToolbar.git",
       "state" : {
-        "revision" : "40a341170beb7fff1152be41ea90923181536d62",
-        "version" : "1.0.4"
+        "revision" : "00c5b74bc527cddb1537cd5ef6392f00c173ece1",
+        "version" : "1.0.5"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hackiftekhar/IQTextInputViewNotification",
       "state" : {
-        "revision" : "a9bc01d6ef2c9f5f0073a052344f194cb6e5d11c",
-        "version" : "1.0.3"
+        "revision" : "0d5ffe17d6b8b7c20d4864d6202a36faae450250",
+        "version" : "1.0.5"
       }
     }
   ],

@@ -1,6 +1,6 @@
 //
-//  IQDeepResponderContainerView.swift
-//  https://github.com/hackiftekhar/IQKeyboardToolbarManager
+//  UIView+RespondersObjc.swift
+//  https://github.com/hackiftekhar/IQKeyboardToolbar
 //  Copyright (c) 2013-24 Iftekhar Qurashi.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,7 +23,21 @@
 
 import UIKit
 
-@available(iOSApplicationExtension, unavailable)
-@MainActor
-@objcMembers open class IQDeepResponderContainerView: UIView {
+// MARK:  For ObjectiveC Compatibility
+
+@objc public extension UITextField {
+
+    var iq_ignoreSwitchingByNextPrevious: Bool {
+        get { iq.ignoreSwitchingByNextPrevious }
+        set { iq.ignoreSwitchingByNextPrevious = newValue }
+    }
 }
+
+@objc public extension UITextView {
+
+    var iq_ignoreSwitchingByNextPrevious: Bool {
+        get { iq.ignoreSwitchingByNextPrevious }
+        set { iq.ignoreSwitchingByNextPrevious = newValue }
+    }
+}
+
