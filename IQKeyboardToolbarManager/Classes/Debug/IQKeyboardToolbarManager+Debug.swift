@@ -30,7 +30,7 @@ internal extension IQKeyboardToolbarManager {
 
     func showLog(_ logString: String, indentation: Int = 0) {
 
-        guard enableDebugging else {
+        guard isDebuggingEnabled else {
             return
         }
 

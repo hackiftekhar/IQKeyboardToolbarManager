@@ -72,7 +72,7 @@ internal extension IQKeyboardToolbarManager {
 
     func privateIsEnableAutoToolbar(of textInputView: some IQTextInputView) -> Bool {
 
-        var isEnabled: Bool = enable
+        var isEnabled: Bool = isEnabled
 
         guard var textInputViewController = (textInputView as UIView).iq.viewContainingController() else {
             return isEnabled

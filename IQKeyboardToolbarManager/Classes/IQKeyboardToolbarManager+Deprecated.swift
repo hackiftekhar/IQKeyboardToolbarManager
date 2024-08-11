@@ -30,7 +30,7 @@ import IQKeyboardToolbar
 @MainActor
 @objc public extension IQKeyboardToolbarManager {
 
-    @available(*, unavailable, renamed: "enable")
+    @available(*, unavailable, renamed: "isEnabled")
     var enableAutoToolbar: Bool {
         get { false }
         set { }

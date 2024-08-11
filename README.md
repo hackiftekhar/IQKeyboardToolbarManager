@@ -34,7 +34,7 @@ import IQKeyboardToolbarManager
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        IQKeyboardToolbarManager.shared.enable = true
+        IQKeyboardToolbarManager.shared.isEnabled = true
         return true
     }
 ```

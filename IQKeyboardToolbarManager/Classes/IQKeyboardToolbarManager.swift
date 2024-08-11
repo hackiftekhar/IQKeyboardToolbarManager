@@ -45,14 +45,14 @@ import IQKeyboardToolbar
     /**
      Automatic add the toolbar functionality. Default is YES.
      */
-    public var enable: Bool = true {
+    public var isEnabled: Bool = true {
         didSet {
             reloadInputViews()
-            showLog("enable: \(enable ? "Yes" : "NO")")
+            showLog("isEnabled: \(isEnabled ? "Yes" : "NO")")
         }
     }
 
-    public var enableDebugging: Bool = false
+    public var isDebuggingEnabled: Bool = false
 
     /**
      Configurations related to the toolbar display over the keyboard.
@@ -68,7 +68,7 @@ import IQKeyboardToolbar
 
     /**
      Disable automatic toolbar creation within the scope of disabled toolbar viewControllers classes.
-     Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
+     Within this scope, 'isEnabled' property is ignored. Class should be kind of UIViewController.
      */
     public var disabledToolbarClasses: [UIViewController.Type] = [
         UIAlertController.self,
@@ -77,7 +77,7 @@ import IQKeyboardToolbar
 
     /**
      Enable automatic toolbar creation within the scope of enabled toolbar viewControllers classes.
-     Within this scope, 'enableAutoToolbar' property is ignored. Class should be kind of UIViewController.
+     Within this scope, 'isEnabled' property is ignored. Class should be kind of UIViewController.
      If same Class is added in disabledToolbarClasses list, then enabledToolbarClasses will be ignore.
      */
     public var enabledToolbarClasses: [UIViewController.Type] = []
