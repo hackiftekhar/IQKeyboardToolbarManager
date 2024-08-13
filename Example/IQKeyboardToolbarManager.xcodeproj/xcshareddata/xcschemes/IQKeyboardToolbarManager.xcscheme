@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C01ED1C22C6A4A08004BA157"
-               BuildableName = "IQKeyboardToolbarManager.framework"
-               BlueprintName = "IQKeyboardToolbarManager"
+               BuildableName = "IQKeyboardToolbarManager_iOS.framework"
+               BlueprintName = "IQKeyboardToolbarManager-iOS"
                ReferencedContainer = "container:IQKeyboardToolbarManager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,8 +50,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C01ED1C22C6A4A08004BA157"
-            BuildableName = "IQKeyboardToolbarManager.framework"
-            BlueprintName = "IQKeyboardToolbarManager"
+            BuildableName = "IQKeyboardToolbarManager_iOS.framework"
+            BlueprintName = "IQKeyboardToolbarManager-iOS"
             ReferencedContainer = "container:IQKeyboardToolbarManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

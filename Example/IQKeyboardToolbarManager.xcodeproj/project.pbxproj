@@ -365,9 +365,9 @@
 			productReference = 607FACE51AFB9204008FA782 /* IQKeyboardToolbarManager_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		C01ED1C22C6A4A08004BA157 /* IQKeyboardToolbarManager */ = {
+		C01ED1C22C6A4A08004BA157 /* IQKeyboardToolbarManager-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01ED1CE2C6A4A08004BA157 /* Build configuration list for PBXNativeTarget "IQKeyboardToolbarManager" */;
+			buildConfigurationList = C01ED1CE2C6A4A08004BA157 /* Build configuration list for PBXNativeTarget "IQKeyboardToolbarManager-iOS" */;
 			buildPhases = (
 				C01ED1BE2C6A4A08004BA157 /* Headers */,
 				C01ED1BF2C6A4A08004BA157 /* Sources */,
@@ -378,7 +378,7 @@
 			);
 			dependencies = (
 			);
-			name = IQKeyboardToolbarManager;
+			name = "IQKeyboardToolbarManager-iOS";
 			productName = "IQKeyboardToolbarManager-iOS";
 			productReference = C01ED1C32C6A4A08004BA157 /* IQKeyboardToolbarManager.framework */;
 			productType = "com.apple.product-type.framework";
@@ -448,7 +448,7 @@
 				607FACCF1AFB9204008FA782 /* IQKeyboardToolbarManager_Example */,
 				C061A0072C64F97C00ED1F7D /* IQKeyboardToolbarManager_ObjcExample */,
 				607FACE41AFB9204008FA782 /* IQKeyboardToolbarManager_Tests */,
-				C01ED1C22C6A4A08004BA157 /* IQKeyboardToolbarManager */,
+				C01ED1C22C6A4A08004BA157 /* IQKeyboardToolbarManager-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -910,7 +910,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.infoenum.IQKeyboardToolbarManager-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = IQKeyboardToolbarManager;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -958,7 +958,7 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.infoenum.IQKeyboardToolbarManager-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = IQKeyboardToolbarManager;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1082,7 +1082,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01ED1CE2C6A4A08004BA157 /* Build configuration list for PBXNativeTarget "IQKeyboardToolbarManager" */ = {
+		C01ED1CE2C6A4A08004BA157 /* Build configuration list for PBXNativeTarget "IQKeyboardToolbarManager-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01ED1CC2C6A4A08004BA157 /* Debug */,
