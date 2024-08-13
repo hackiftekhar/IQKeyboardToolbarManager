@@ -15,8 +15,6 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		675322B346BC07C1C24D4D1A /* Pods_IQKeyboardToolbarManager_ObjcExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E196CABF448D57523D14ACB6 /* Pods_IQKeyboardToolbarManager_ObjcExample.framework */; };
 		A404D12308B1A470EEEB24F3 /* Pods_IQKeyboardToolbarManager_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 203161A7602CEB8FA5FA3262 /* Pods_IQKeyboardToolbarManager_Example.framework */; };
-		C01ED1C92C6A4A08004BA157 /* IQKeyboardToolbarManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01ED1C32C6A4A08004BA157 /* IQKeyboardToolbarManager.framework */; };
-		C01ED1CA2C6A4A08004BA157 /* IQKeyboardToolbarManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C01ED1C32C6A4A08004BA157 /* IQKeyboardToolbarManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C01ED1E42C6A4A84004BA157 /* IQKeyboardToolbarManager+Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED1D42C6A4A84004BA157 /* IQKeyboardToolbarManager+Action.swift */; };
 		C01ED1E52C6A4A84004BA157 /* IQKeyboardToolbarManager+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED1D52C6A4A84004BA157 /* IQKeyboardToolbarManager+Toolbar.swift */; };
 		C01ED1E62C6A4A84004BA157 /* IQKeyboardToolbarManager+Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01ED1D62C6A4A84004BA157 /* IQKeyboardToolbarManager+Deprecated.swift */; };
@@ -49,28 +47,7 @@
 			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
 			remoteInfo = IQKeyboardToolbarManager;
 		};
-		C01ED1C72C6A4A08004BA157 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C01ED1C22C6A4A08004BA157;
-			remoteInfo = "IQKeyboardToolbarManager-iOS";
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		C01ED1CB2C6A4A08004BA157 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				C01ED1CA2C6A4A08004BA157 /* IQKeyboardToolbarManager.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0F5504CCFA7F69B80EB58B0D /* Pods-IQKeyboardToolbarManager_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IQKeyboardToolbarManager_Example.release.xcconfig"; path = "Target Support Files/Pods-IQKeyboardToolbarManager_Example/Pods-IQKeyboardToolbarManager_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -130,7 +107,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A404D12308B1A470EEEB24F3 /* Pods_IQKeyboardToolbarManager_Example.framework in Frameworks */,
-				C01ED1C92C6A4A08004BA157 /* IQKeyboardToolbarManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,12 +337,10 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				2E8B8CE024D5C8574335E80A /* [CP] Embed Pods Frameworks */,
-				C01ED1CB2C6A4A08004BA157 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C01ED1C82C6A4A08004BA157 /* PBXTargetDependency */,
 			);
 			name = IQKeyboardToolbarManager_Example;
 			productName = IQKeyboardToolbarManager;
@@ -671,11 +645,6 @@
 			target = 607FACCF1AFB9204008FA782 /* IQKeyboardToolbarManager_Example */;
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
 		};
-		C01ED1C82C6A4A08004BA157 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C01ED1C22C6A4A08004BA157 /* IQKeyboardToolbarManager */;
-			targetProxy = C01ED1C72C6A4A08004BA157 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -928,7 +897,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 CocoaPods. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -977,7 +946,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 CocoaPods. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
