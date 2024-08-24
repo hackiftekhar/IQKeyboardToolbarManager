@@ -5,6 +5,7 @@ platform :ios, '13.0'
 target 'IQKeyboardToolbarManager_Example' do
   pod 'IQTextView'
   pod 'IQKeyboardToolbarManager', :path => '../'
+  pod "SwiftLint"
 end
 
 target 'IQKeyboardToolbarManager_ObjcExample' do

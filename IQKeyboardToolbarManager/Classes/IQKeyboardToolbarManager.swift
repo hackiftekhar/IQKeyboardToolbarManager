@@ -35,7 +35,7 @@ import IQKeyboardToolbar
     internal var textInputView: (some IQTextInputView)? {
         textInputViewObserver.textInputView
     }
-    
+
     /**
      Returns the default singleton instance.
      */
@@ -96,7 +96,6 @@ import IQKeyboardToolbar
     internal var logIndentation = 0
 
     internal override init() {
-
         super.init()
 
         addTextInputViewObserver()
@@ -127,9 +126,7 @@ private extension IQKeyboardToolbarManager {
     private func addTextInputViewObserver() {
         textInputViewObserver.subscribe(identifier: "IQKeyboardToolbarManager",
                                         changeHandler: { [weak self] event, textInputView in
-
             guard let self = self else { return }
-
             guard (textInputView as UIView).iq.isAlertViewTextField() == false else {
                 return
             }

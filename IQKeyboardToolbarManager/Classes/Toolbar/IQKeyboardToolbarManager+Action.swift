@@ -31,7 +31,7 @@ import IQKeyboardToolbar
 @objc public extension IQKeyboardToolbarManager {
 
     /**
-    Returns YES if can navigate to previous responder textInputView, otherwise NO.
+     Returns YES if can navigate to previous responder textInputView, otherwise NO.
     */
     var canGoPrevious: Bool {
         // If it is not first textInputView. then it's previous object canBecomeFirstResponder.
@@ -45,7 +45,7 @@ import IQKeyboardToolbar
     }
 
     /**
-    Returns YES if can navigate to next responder textInputViews, otherwise NO.
+     Returns YES if can navigate to next responder textInputViews, otherwise NO.
     */
     var canGoNext: Bool {
         // If it is not first textInputView. then it's previous object canBecomeFirstResponder.
@@ -59,7 +59,7 @@ import IQKeyboardToolbar
     }
 
     /**
-    Navigate to previous responder textInputViews
+     Navigate to previous responder textInputViews
     */
     @discardableResult
     func goPrevious() -> Bool {
@@ -85,7 +85,7 @@ import IQKeyboardToolbar
     }
 
     /**
-    Navigate to next responder textInputView.
+     Navigate to next responder textInputView.
     */
     @discardableResult
     func goNext() -> Bool {
@@ -108,20 +108,6 @@ import IQKeyboardToolbar
         }
 
         return isAcceptAsFirstResponder
-    }
-
-    /**
-    Navigate to next responder textInputView.
-    */
-    @discardableResult
-    func resignFirstResponder() -> Bool {
-
-        // If it is not first textInputView. then it's previous object becomeFirstResponder.
-        guard let textInputView: any IQTextInputView = self.textInputView else {
-            return false
-        }
-
-        return textInputView.resignFirstResponder()
     }
 }
 

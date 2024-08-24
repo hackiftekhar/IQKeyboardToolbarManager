@@ -75,8 +75,8 @@ public extension IQKeyboardExtension where Base: IQTextInputView {
 internal extension IQKeyboardExtension where Base: IQTextInputView {
 
     /**
-    Returns all siblings of the receiver which canBecomeFirstResponder.
-    */
+     Returns all siblings of the receiver which canBecomeFirstResponder.
+     */
     func responderSiblings() -> [any IQTextInputView] {
 
         //    Getting all siblings
