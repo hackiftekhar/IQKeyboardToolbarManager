@@ -24,8 +24,8 @@
         "5.9"
     ],
     "dependencies": {
-        "IQKeyboardToolbar": ["1.1.0"],
-        "IQTextInputViewNotification": ["1.0.5"]
+        "IQKeyboardToolbar": [],
+        "IQTextInputViewNotification": []
     },
     "source_files": [
         "IQKeyboardToolbarManager/Classes/**/*.{swift}"
