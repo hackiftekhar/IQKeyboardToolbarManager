@@ -43,9 +43,9 @@ import IQKeyboardToolbar
     @objc public static let shared: IQKeyboardToolbarManager = .init()
 
     /**
-     Automatic add the toolbar functionality. Default is YES.
+     Automatic add the toolbar functionality. Default is false.
      */
-    public var isEnabled: Bool = true {
+    public var isEnabled: Bool = false {
         didSet {
             reloadInputViews()
             showLog("isEnabled: \(isEnabled ? "Yes" : "NO")")
