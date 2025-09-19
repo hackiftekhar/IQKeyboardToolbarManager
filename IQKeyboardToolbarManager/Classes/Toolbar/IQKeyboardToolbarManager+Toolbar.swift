@@ -141,6 +141,9 @@ internal extension IQKeyboardToolbarManager {
         textInputView.inputAccessoryView?.tag = IQKeyboardToolbarManager.toolbarTag
 
         Self.applyToolbarConfiguration(textInputView: textInputView, toolbarConfiguration: toolbarConfiguration)
+        
+        // iOS 26 fix: Address button spacing and layout issues
+        fixIOS26ToolbarLayoutIfNeeded(textInputView: textInputView)
     }
     // swiftlint:enable function_body_length
     // swiftlint:enable cyclomatic_complexity
@@ -269,5 +272,88 @@ private extension IQKeyboardToolbarManager {
 
         // Setting toolbar button title color.   //  (Enhancement ID: #880)
         toolbar.titleBarButton.selectableTitleColor = toolbarConfiguration.placeholderConfiguration.buttonColor
+    }
+    
+    /**
+     Fix iOS 26 toolbar layout issues by ensuring proper flexible space handling
+     for consistent button spacing across iOS versions.
+     */
+    static func fixIOS26ToolbarLayoutIfNeeded(textInputView: some IQTextInputView) {
+        guard #available(iOS 26.0, *) else { return }
+        
+        let toolbar: IQKeyboardToolbar = textInputView.iq.toolbar
+        guard let items = toolbar.items, items.count > 1 else { return }
+        
+        var hasNavigationButtons = false
+        var hasTitleButton = false
+        var hasRightButton = false
+        
+        // Analyze the current toolbar composition
+        for item in items {
+            if item is IQTitleBarButtonItem {
+                hasTitleButton = true
+            } else if item.systemItem == .done || item.image != nil || item.title != nil {
+                // This is likely a navigation or action button
+                if item.systemItem == .done {
+                    hasRightButton = true
+                } else {
+                    hasNavigationButtons = true
+                }
+            }
+        }
+        
+        // Only fix layouts that have navigation buttons and title (the problematic case)
+        guard hasNavigationButtons && hasTitleButton else { return }
+        
+        var fixedItems: [UIBarButtonItem] = []
+        var titleInserted = false
+        var flexibleSpaceCount = 0
+        
+        for item in items {
+            if let titleButton = item as? IQTitleBarButtonItem {
+                // Skip the title button for now, we'll insert it properly later
+                continue
+            } else if item.systemItem == .flexibleSpace {
+                flexibleSpaceCount += 1
+                // On iOS 26, the first flexible space may be missing, causing layout issues
+                // We'll handle spacing manually to ensure proper layout
+                if flexibleSpaceCount == 1 && !titleInserted && hasTitleButton {
+                    // This is where we should insert the title with proper spacing
+                    let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                    fixedItems.append(flexibleSpace)
+                    fixedItems.append(toolbar.titleBarButton)
+                    let flexibleSpace2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                    fixedItems.append(flexibleSpace2)
+                    titleInserted = true
+                    continue
+                }
+            }
+            fixedItems.append(item)
+        }
+        
+        // If title wasn't inserted yet but should be there, add it with proper spacing
+        if hasTitleButton && !titleInserted {
+            // Find the right place to insert the title (before the Done button if it exists)
+            if hasRightButton && !fixedItems.isEmpty {
+                // Insert title before the last item (usually Done button)
+                let lastItem = fixedItems.removeLast()
+                let flexibleSpace1 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                fixedItems.append(flexibleSpace1)
+                fixedItems.append(toolbar.titleBarButton)
+                let flexibleSpace2 = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                fixedItems.append(flexibleSpace2)
+                fixedItems.append(lastItem)
+            } else {
+                // Just add at the end with spacing
+                let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+                fixedItems.append(flexibleSpace)
+                fixedItems.append(toolbar.titleBarButton)
+            }
+        }
+        
+        // Only update if we made changes
+        if fixedItems.count != items.count {
+            toolbar.items = fixedItems
+        }
     }
 }
