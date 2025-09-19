@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hackiftekhar/IQKeyboardCore.git",
       "state" : {
-        "revision" : "ae9d197f1d8c491b312e30eafb0193d164519c5a",
-        "version" : "1.0.7"
+        "revision" : "6501e93b03161ce1c9355d2d689bad91c534104e",
+        "version" : "1.0.8"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hackiftekhar/IQKeyboardToolbar.git",
       "state" : {
-        "revision" : "78ccb63857a03334ecfcba566f8f504015965ee3",
-        "version" : "1.1.1"
+        "revision" : "fbf91109cbc00e295d52c50e4b6dd8fa98f08ca5",
+        "version" : "1.1.2"
       }
     },
     {
