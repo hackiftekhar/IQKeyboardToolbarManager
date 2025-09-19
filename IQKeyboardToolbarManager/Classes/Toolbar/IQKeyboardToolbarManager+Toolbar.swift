@@ -173,17 +173,36 @@ private extension IQKeyboardToolbarManager {
 
         let swiftUIAccessoryNamePrefixes: [String] = [
             "RootUIView",   // iOS 18
-            "InputAccessoryHost<InputAccessoryBar>" // iOS 17 and below
+            "_UIInputViewContent",  // iOS 18 system views
+            "InputAccessoryHost<InputAccessoryBar>", // iOS 17 and below
+            "_UIKeyboardInputAccessory" // Additional iOS 18 system view
         ]
         let classNameString: String = "\(type(of: inputAccessoryView.classForCoder))"
 
-        // If it's SwiftUI accessory view but doesn't have a height (fake accessory view), then we should
-        // add our own accessoryView otherwise, keep the SwiftUI accessoryView since user has added it from code
-        guard swiftUIAccessoryNamePrefixes.contains(where: { classNameString.hasPrefix($0)}),
-              inputAccessoryView.subviews.isEmpty else {
+        // Check if it's a SwiftUI accessory view
+        let isSwiftUIAccessoryView = swiftUIAccessoryNamePrefixes.contains(where: { classNameString.hasPrefix($0) })
+        
+        if isSwiftUIAccessoryView {
+            // For iOS 18 and later SwiftUI accessory views, we need to check if it's a system-generated
+            // accessory view that we can replace. If it has no meaningful content or is very small in height,
+            // we should allow our toolbar to be added.
+            if inputAccessoryView.subviews.isEmpty {
+                // Empty SwiftUI accessory view - we can replace it
+                return false
+            }
+            
+            // For iOS 18, also check if the accessory view has minimal height (system generated)
+            // A height of 0 or very small height typically indicates a system placeholder
+            if inputAccessoryView.frame.height <= 1.0 {
+                return false
+            }
+            
+            // If it has content and reasonable height, it's likely user-defined
             return true
         }
-        return false
+
+        // Not a SwiftUI accessory view, so it's user-defined
+        return true
     }
 
     func getRightConfiguration() -> IQBarButtonItemConfiguration {
