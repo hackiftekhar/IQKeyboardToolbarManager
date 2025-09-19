@@ -84,6 +84,16 @@ Useful functions and variables for TextInputView
         textField.iq.ignoreSwitchingByNextPrevious = false
 ```
 
+## iOS 26 Support
+
+This library includes a fix for iOS 26 keyboard toolbar button spacing issues:
+
+- **Issue**: iOS 26 changed how flexible spaces are handled in toolbars, causing empty buttons to appear in the center and inconsistent spacing
+- **Fix**: Automatically detects and corrects problematic toolbar layouts on iOS 26+ while maintaining backward compatibility
+- **Result**: Clean, consistent toolbar layout across all iOS versions with proper button spacing
+
+The fix is applied automatically and requires no additional configuration.
+
 ## Author
 
 Iftekhar Qurashi hack.iftekhar@gmail.com
