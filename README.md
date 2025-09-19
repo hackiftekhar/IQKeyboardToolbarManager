@@ -15,16 +15,57 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-IQKeyboardToolbarManager is available through [CocoaPods](https://cocoapods.org). To install
+### Swift Package Manager (Recommended)
+
+IQKeyboardToolbarManager is available through [Swift Package Manager](https://swift.org/package-manager/). 
+
+**Requirements:** iOS 13.0+, Swift 5.7+
+
+#### Using Xcode:
+1. In Xcode, go to `File` → `Add Package Dependencies...`
+2. Enter the repository URL: `https://github.com/hackiftekhar/IQKeyboardToolbarManager`
+3. Select the version rule (e.g., "Up to Next Major Version")
+4. Click `Add Package`
+5. Select the `IQKeyboardToolbarManager` library and click `Add Package`
+
+#### Using Package.swift:
+Add the following dependency to your `Package.swift` file:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/hackiftekhar/IQKeyboardToolbarManager", from: "1.1.3")
+]
+```
+
+Then add `IQKeyboardToolbarManager` to your target dependencies:
+
+```swift
+.target(
+    name: "YourTarget",
+    dependencies: ["IQKeyboardToolbarManager"]
+)
+```
+
+### CocoaPods
+
+IQKeyboardToolbarManager is also available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'IQKeyboardToolbarManager'
 ```
 
+### Carthage
+
+Add the following line to your `Cartfile`:
+
+```
+github "hackiftekhar/IQKeyboardToolbarManager"
+```
+
 ## Usage
 
-Enable toolbar handling in AppDelegate
+After adding IQKeyboardToolbarManager to your project, import it and enable toolbar handling in AppDelegate:
 
 ```swift
 import UIKit
