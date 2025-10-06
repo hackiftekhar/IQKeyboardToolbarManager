@@ -172,14 +172,19 @@ private extension IQKeyboardToolbarManager {
               inputAccessoryView.tag != IQKeyboardToolbarManager.toolbarTag else { return false }
 
         let swiftUIAccessoryNamePrefixes: [String] = [
+            "InputAccessoryHost<InputAccessoryBar>", // iOS 17 and below
             "RootUIView",   // iOS 18
-            "InputAccessoryHost<InputAccessoryBar>" // iOS 17 and below
+            "_UIInputViewContent",  // iOS 18 system views
+            "_UIKeyboardInputAccessory" // Additional iOS 18 system view
         ]
         let classNameString: String = "\(type(of: inputAccessoryView.classForCoder))"
 
         // If it's SwiftUI accessory view but doesn't have a height (fake accessory view), then we should
         // add our own accessoryView otherwise, keep the SwiftUI accessoryView since user has added it from code
-        guard swiftUIAccessoryNamePrefixes.contains(where: { classNameString.hasPrefix($0)}),
+        let isSwiftUIAccessoryView = swiftUIAccessoryNamePrefixes.contains(where: { classNameString.hasPrefix($0) })
+
+        // A height of 0 or very small height typically indicates a system placeholder
+        guard isSwiftUIAccessoryView,
               inputAccessoryView.subviews.isEmpty else {
             return true
         }

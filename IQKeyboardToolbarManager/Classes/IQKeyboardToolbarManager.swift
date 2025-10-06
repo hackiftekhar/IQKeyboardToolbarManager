@@ -25,12 +25,14 @@ import UIKit
 import IQTextInputViewNotification
 import IQKeyboardCore
 import IQKeyboardToolbar
+import Combine
 
 @available(iOSApplicationExtension, unavailable)
 @MainActor
 @objcMembers public final class IQKeyboardToolbarManager: NSObject {
 
     private let textInputViewObserver: IQTextInputViewNotification = .init()
+    private var storage: Set<AnyCancellable> = []
 
     internal var textInputView: (some IQTextInputView)? {
         textInputViewObserver.textInputView
@@ -99,6 +101,7 @@ import IQKeyboardToolbar
         super.init()
 
         addTextInputViewObserver()
+        addBecomeActiveObserver()
 
         // (Bug ID: #550)
         // Loading IQKeyboardToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay
@@ -138,5 +141,33 @@ private extension IQKeyboardToolbarManager {
                 removeToolbarIfRequired(of: textInputView)
             }
         })
+    }
+}
+
+@available(iOSApplicationExtension, unavailable)
+@MainActor
+private extension IQKeyboardToolbarManager {
+
+    private func removeBecomeActiveObserver() {
+        storage.forEach { $0.cancel() }
+        storage.removeAll()
+   }
+
+    private func addBecomeActiveObserver() {
+        let beginEditingNotificationNames: [Notification.Name] = [
+            UIApplication.didBecomeActiveNotification
+        ]
+
+        for notificationName in beginEditingNotificationNames {
+            NotificationCenter.default.publisher(for: notificationName)
+                .sink(receiveValue: { [weak self] info in
+                    guard let self = self else { return }
+
+                    // In SwiftUI View's when app comes from background to foreground
+                    // The inputAccessoryView was getting removed in iOS 26. So forcing to reload.
+                    self.reloadInputViews()
+                })
+                .store(in: &storage)
+        }
     }
 }

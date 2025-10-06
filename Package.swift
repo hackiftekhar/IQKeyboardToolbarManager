@@ -14,8 +14,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/hackiftekhar/IQKeyboardToolbar.git", from: "1.1.1"),
-        .package(url: "https://github.com/hackiftekhar/IQTextInputViewNotification", from: "1.0.8"),
+        .package(url: "https://github.com/hackiftekhar/IQKeyboardToolbar.git", from: "1.1.2"),
+        .package(url: "https://github.com/hackiftekhar/IQTextInputViewNotification", from: "1.0.9"),
     ],
     targets: [
         .target(name: "IQKeyboardToolbarManager",
@@ -28,6 +28,7 @@ let package = Package(
                 .copy("Assets/PrivacyInfo.xcprivacy")
             ],
             linkerSettings: [
+                .linkedFramework("Combine"),
                 .linkedFramework("UIKit")
             ]
         )

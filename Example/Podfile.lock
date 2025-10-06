@@ -1,10 +1,14 @@
 PODS:
   - IQKeyboardCore (1.0.5)
-  - IQKeyboardToolbar (1.1.0):
-    - IQKeyboardCore (= 1.0.5)
-  - IQKeyboardToolbarManager (1.1.0):
-    - IQKeyboardToolbar (= 1.1.0)
-    - IQTextInputViewNotification (= 1.0.5)
+  - IQKeyboardToolbar (1.1.2):
+    - IQKeyboardToolbar/Core (= 1.1.2)
+  - IQKeyboardToolbar/Core (1.1.2):
+    - IQKeyboardCore
+    - IQKeyboardToolbar/Placeholderable
+  - IQKeyboardToolbar/Placeholderable (1.1.2)
+  - IQKeyboardToolbarManager (1.1.4):
+    - IQKeyboardToolbar
+    - IQTextInputViewNotification
   - IQTextInputViewNotification (1.0.5):
     - IQKeyboardCore (= 1.0.5)
   - IQTextView (1.0.1)
@@ -29,12 +33,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
-  IQKeyboardToolbar: 3b2b66a44d9f95c32156bc17af412411073eb693
-  IQKeyboardToolbarManager: a89ff7ace5b90a2767fb457923cbf578b935cb7b
+  IQKeyboardToolbar: a8aab764a27d55892b951e58ebfffdde14a01ce8
+  IQKeyboardToolbarManager: 376520405cacce2fb88139e58cdfac72779f1889
   IQTextInputViewNotification: 4381fb828881983205fbee38f17da8a9fe2e835c
   IQTextView: a6dac50cd471257bcee8852b638b73044ff5d22c
   SwiftLint: bd7cfb914762ab5f0cbb632964849571db075706
 
-PODFILE CHECKSUM: f84388a4085a92000a575ca5cecab6938c25dbcd
+PODFILE CHECKSUM: b4d8f242cf8d94637bd8e5e6288ae056973af903
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2
