@@ -1,5 +1,5 @@
 PODS:
-  - IQKeyboardCore (1.0.5)
+  - IQKeyboardCore (1.0.8)
   - IQKeyboardToolbar (1.1.2):
     - IQKeyboardToolbar/Core (= 1.1.2)
   - IQKeyboardToolbar/Core (1.1.2):
@@ -9,10 +9,11 @@ PODS:
   - IQKeyboardToolbarManager (1.1.4):
     - IQKeyboardToolbar
     - IQTextInputViewNotification
-  - IQTextInputViewNotification (1.0.5):
-    - IQKeyboardCore (= 1.0.5)
-  - IQTextView (1.0.1)
-  - SwiftLint (0.56.2)
+  - IQTextInputViewNotification (1.0.9):
+    - IQKeyboardCore
+  - IQTextView (1.0.5):
+    - IQKeyboardToolbar/Placeholderable
+  - SwiftLint (0.62.1)
 
 DEPENDENCIES:
   - IQKeyboardToolbarManager (from `../`)
@@ -32,12 +33,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  IQKeyboardCore: 28c8bf3bcd8ba5aa1570b318cbc4da94b861711e
+  IQKeyboardCore: 8652977ec919cf5351aa2977fedd1a6546476fbc
   IQKeyboardToolbar: a8aab764a27d55892b951e58ebfffdde14a01ce8
   IQKeyboardToolbarManager: 376520405cacce2fb88139e58cdfac72779f1889
-  IQTextInputViewNotification: 4381fb828881983205fbee38f17da8a9fe2e835c
-  IQTextView: a6dac50cd471257bcee8852b638b73044ff5d22c
-  SwiftLint: bd7cfb914762ab5f0cbb632964849571db075706
+  IQTextInputViewNotification: 3b9fb27a16e7ee8958cc9092cfb07a1a9e1fd559
+  IQTextView: ae13b4922f22e6f027f62c557d9f4f236b19d5c7
+  SwiftLint: 6a9eb020853558a7eaf00f655636b5d6ad15bd02
 
 PODFILE CHECKSUM: b4d8f242cf8d94637bd8e5e6288ae056973af903
 

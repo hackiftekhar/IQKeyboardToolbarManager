@@ -197,7 +197,15 @@ private extension IQKeyboardToolbarManager {
             rightConfiguration = configuration
             rightConfiguration.action = #selector(self.doneAction(_:))
         } else {
+#if compiler(>=6.2) // Xcode 26
+            if #available(iOS 26.0, *) {
+                rightConfiguration = IQBarButtonItemConfiguration(image: UIImage(systemName: "checkmark")!, action: #selector(self.doneAction(_:)))
+            } else {
+                rightConfiguration = IQBarButtonItemConfiguration(systemItem: .done, action: #selector(self.doneAction(_:)))
+            }
+#else
             rightConfiguration = IQBarButtonItemConfiguration(systemItem: .done, action: #selector(self.doneAction(_:)))
+#endif
             rightConfiguration.accessibilityLabel = "Done"
         }
         return rightConfiguration
