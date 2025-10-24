@@ -78,11 +78,16 @@ internal extension IQKeyboardToolbarManager {
             return isEnabled
         }
 
-        // If it is searchBar textInputView embedded in Navigation Bar
-        if (textInputView as UIView).iq.textFieldSearchBar() != nil,
-           let navController: UINavigationController = textInputViewController as? UINavigationController,
-           let topController: UIViewController = navController.topViewController {
-            textInputViewController = topController
+        if textInputView is UISearchTextField {
+            if let navController: UINavigationController = textInputViewController as? UINavigationController,
+               let topController: UIViewController = navController.topViewController {
+                textInputViewController = topController
+            }
+
+            // Not adding toolbar for searchTextField inside searchController.
+            if textInputViewController.navigationItem.searchController?.searchBar.searchTextField == textInputView {
+                return false
+            }
         }
 
         if !isEnabled, enabledToolbarClasses.contains(where: { textInputViewController.isKind(of: $0) }) {

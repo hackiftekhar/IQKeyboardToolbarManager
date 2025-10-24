@@ -29,6 +29,7 @@
 		C01ED1F12C6A4AB3004BA157 /* IQKeyboardToolbar.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01ED1F02C6A4AB3004BA157 /* IQKeyboardToolbar.xcframework */; };
 		C01ED1F42C6A4AD0004BA157 /* IQKeyboardCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01ED1F22C6A4AD0004BA157 /* IQKeyboardCore.xcframework */; };
 		C01ED1F52C6A4AD0004BA157 /* IQTextInputViewNotification.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C01ED1F32C6A4AD0004BA157 /* IQTextInputViewNotification.xcframework */; };
+		C0581FE12EABC9830048B3D8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0581FE02EABC9830048B3D8 /* SearchViewController.swift */; };
 		C061A00C2C64F97C00ED1F7D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C061A00B2C64F97C00ED1F7D /* AppDelegate.m */; };
 		C061A00F2C64F97C00ED1F7D /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C061A00E2C64F97C00ED1F7D /* SceneDelegate.m */; };
 		C061A0122C64F97C00ED1F7D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C061A0112C64F97C00ED1F7D /* ViewController.m */; };
@@ -82,6 +83,7 @@
 		C01ED1F02C6A4AB3004BA157 /* IQKeyboardToolbar.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IQKeyboardToolbar.xcframework; path = ../Carthage/Build/IQKeyboardToolbar.xcframework; sourceTree = "<group>"; };
 		C01ED1F22C6A4AD0004BA157 /* IQKeyboardCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IQKeyboardCore.xcframework; path = ../Carthage/Build/IQKeyboardCore.xcframework; sourceTree = "<group>"; };
 		C01ED1F32C6A4AD0004BA157 /* IQTextInputViewNotification.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = IQTextInputViewNotification.xcframework; path = ../Carthage/Build/IQTextInputViewNotification.xcframework; sourceTree = "<group>"; };
+		C0581FE02EABC9830048B3D8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		C061A0082C64F97C00ED1F7D /* IQKeyboardToolbarManager_ObjcExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IQKeyboardToolbarManager_ObjcExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C061A00A2C64F97C00ED1F7D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C061A00B2C64F97C00ED1F7D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				C0581FE02EABC9830048B3D8 /* SearchViewController.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -634,6 +637,7 @@
 			files = (
 				C0AE29312C4F9DA400F8904C /* IQTextView+Placeholderable.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				C0581FE12EABC9830048B3D8 /* SearchViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
