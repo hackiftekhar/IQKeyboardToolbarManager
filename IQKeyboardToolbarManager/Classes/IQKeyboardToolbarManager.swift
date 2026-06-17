@@ -101,7 +101,7 @@ import Combine
         super.init()
 
         addTextInputViewObserver()
-        addBecomeActiveObserver()
+        addKeyboardDidShowObserver()
 
         // (Bug ID: #550)
         // Loading IQKeyboardToolbar, IQTitleBarButtonItem, IQBarButtonItem to fix first time keyboard appearance delay
@@ -153,21 +153,20 @@ private extension IQKeyboardToolbarManager {
         storage.removeAll()
    }
 
-    private func addBecomeActiveObserver() {
-        let beginEditingNotificationNames: [Notification.Name] = [
-            UIApplication.didBecomeActiveNotification
-        ]
+    private func addKeyboardDidShowObserver() {
+        let notification = UIResponder.keyboardDidShowNotification
 
-        for notificationName in beginEditingNotificationNames {
-            NotificationCenter.default.publisher(for: notificationName)
-                .sink(receiveValue: { [weak self] info in
-                    guard let self = self else { return }
-
-                    // In SwiftUI View's when app comes from background to foreground
-                    // The inputAccessoryView was getting removed in iOS 26. So forcing to reload.
-                    self.reloadInputViews()
-                })
-                .store(in: &storage)
-        }
+        NotificationCenter.default
+            .publisher(for: notification)
+            .compactMap { [weak self] _ in self?.textInputView }
+            .sink { [weak self] textInputView in
+                self?.showLog("Keyboard did show, reloading input views for \(textInputView)")
+                // The keyboard may reappear after being hidden due to backgrounding, navigation,
+                // modal presentation, or window overlay – without a new beginEditing event.
+                // Reloads the toolbar exactly when the keyboard is ready,
+                // fixing the missing inputAccessoryView issue (iOS 26 and above).
+                self?.reloadInputViews()
+            }
+            .store(in: &storage)
     }
 }
