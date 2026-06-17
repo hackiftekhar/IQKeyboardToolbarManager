@@ -198,7 +198,8 @@ private extension IQKeyboardToolbarManager {
             rightConfiguration.action = #selector(self.doneAction(_:))
         } else {
 #if compiler(>=6.2) // Xcode 26
-            if #available(iOS 26.0, *) {
+            let requiresCompatibility: Bool = Bundle.main.object(forInfoDictionaryKey: "UIDesignRequiresCompatibility") as? Bool ?? false
+            if #available(iOS 26.0, *), !requiresCompatibility {
                 rightConfiguration = IQBarButtonItemConfiguration(image: UIImage(systemName: "checkmark")!, action: #selector(self.doneAction(_:)))
             } else {
                 rightConfiguration = IQBarButtonItemConfiguration(systemItem: .done, action: #selector(self.doneAction(_:)))
